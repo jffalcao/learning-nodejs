@@ -1,0 +1,22 @@
+{
+  "name": "learning-nodejs",
+  "version": "1.0.0",
+  "description": "Learning Node.js, by Alexander Zanfir",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jffalcao/learning-nodejs.git"
+  },
+  "author": "Aexander Zanfir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jffalcao/learning-nodejs/issues"
+  },
+  "homepage": "https://github.com/jffalcao/learning-nodejs#readme",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}

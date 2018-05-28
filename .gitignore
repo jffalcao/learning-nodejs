@@ -1,3 +1,9 @@
+# Solution files
+solution_files
+
+# MACOS Desktop Services File
+.DS_store
+
 # Logs
 logs
 *.log
