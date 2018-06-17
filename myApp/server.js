@@ -9,6 +9,8 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+mongoose.Promise = Promise;
+
 dbUrl = 'mongodb://user:Password!1234@ds255930.mlab.com:55930/learning-node'
 
 var Message = mongoose.model('Message', {
@@ -25,24 +27,23 @@ app.get('/messages', (req, res) => {
 app.post('/messages', (req, res) => {
     var message = new Message(req.body);
 
-    message.save((err) => {
-        if (err)
-            sendStatus(500)
-
-        Message.findOne({message: 'badword'}, (err, censored) => {
-            if (censored) {
-                console.log('Censored words found', censored);
-                Message.remove({_id: censored.id}, (err) => {
-                    console.log('Removed censored message');                    
-                });
-            };
-        });
-        
+    message.save()
+    .then(() => {
+        console.log('saved'); 
+        return Message.findOne({message: 'badword'});
+    })
+    .then(censored => {
+        if(censored) {
+            console.log('censored words found', censored);
+            return Message.remove({_id: censored.id});            
+        };
         io.emit('message', req.body);
         res.sendStatus(200);
-
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+        return console.error(err);
     });
-
 });
 
 io.on('connection', (socket) => {
